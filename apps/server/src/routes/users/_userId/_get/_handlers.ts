@@ -5,8 +5,8 @@ export default async function (fastify: FastifyInstance) {
         '/',
         {},
         async (_: FastifyRequest, reply: FastifyReply) => {
-            console.log('users/:userId OK!');
-            return reply.code(200).send({ message: 'users/1' });
+            console.log('GET users/:userId OK!');
+            return reply.code(200).send({ message: 'GET users/:userId OK!' });
         }
     );
 }
