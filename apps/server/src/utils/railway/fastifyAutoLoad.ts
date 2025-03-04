@@ -7,8 +7,12 @@ export default async (fastify: FastifyInstance) => {
   await fastify.register(autoLoad, {
     dir: join(__dirname, '../../routes'),
     routeParams: true,
-    dirNameRoutePrefix: false,
-    matchFilter: (path: string) =>
-      path.split('/').at(-1)?.split('.').at(-2) === '_handlers'
+    matchFilter: (path: string) => {
+      const parts = path.split('/');
+      const fileName = parts.at(-1);
+      const fileBaseName = fileName?.split('.').at(-2);
+      const excludedDirs = ['_get', '_post', '_put', '_patch', '_delete'];
+      return fileBaseName === '_handlers' && !parts.some(part => excludedDirs.includes(part));
+    }
   });
 };

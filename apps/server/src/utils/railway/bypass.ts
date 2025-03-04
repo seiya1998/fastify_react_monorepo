@@ -14,6 +14,6 @@ export const bypass = <
 ) => Promise<Result<NextOk, PreviousNg | NextNg>>) => {
   return async (input) => {
     const inputResult = await input;
-    return inputResult.success ? await func(inputResult.data) : inputResult;
+    return inputResult.success ? await func(inputResult.data) : inputResult as Result<NextOk, PreviousNg | NextNg>;
   };
 };
